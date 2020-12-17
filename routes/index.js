@@ -14,4 +14,8 @@ router.get('/elements', function(req, res, next) {
   res.render('elements.html');
 });
 
+router.get('/reservation', function(req, res, next) {
+  res.render('elements.html');
+});
+
 module.exports = router;
