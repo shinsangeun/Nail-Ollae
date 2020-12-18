@@ -18,7 +18,7 @@ router.get('/reservation', function(req, res, next) {
   res.render('elements.html');
 });
 
-router.get('/review', function(req, res, next) {
+router.get('/review/list', function(req, res, next) {
   res.render('./review/list.html');
 });
 
