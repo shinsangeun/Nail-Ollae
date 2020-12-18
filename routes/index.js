@@ -18,4 +18,16 @@ router.get('/reservation', function(req, res, next) {
   res.render('elements.html');
 });
 
+router.get('/review', function(req, res, next) {
+  res.render('./review/list.html');
+});
+
+router.get('/review/write', function(req, res, next) {
+  res.render('./review/write.html');
+});
+
+router.get('/review/modify', function(req, res, next) {
+  res.render('./review/modify.html');
+});
+
 module.exports = router;
