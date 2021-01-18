@@ -11,10 +11,10 @@
     function checkSave() {
         if(window.confirm("게시글을 저장 하시겠습니까?")){
             // TODO 게시글 저장 후 페이지 이동
-            window.location.href="/review"
+            window.location.href="/review/title=" + title;
         }else{
             // TODO 게시글 저장 하지 않고 리스트로 이동
-            window.location.href="/review"
+            window.location.href="/review";
         }
     }
 </script>
@@ -56,6 +56,10 @@
 
                         <form method="post" action="#">
                             <div class="row gtr-uniform">
+                                <div class="col-12 col-12-xsmall">
+                                    <input type="text" name="demo-title" id="title" value="" placeholder="Title" />
+                                </div>
+
                                 <div class="col-6 col-12-xsmall">
                                     <input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
                                 </div>
@@ -94,7 +98,7 @@
                                 <!-- Break -->
                                 <div class="col-12">
                                     <ul class="actions">
-                                        <li><input type="submit" value="Save" class="primary" onclick="checkSave()"/></li>
+                                        <li><input type="submit" value="Save" class="primary"/></li>
                                         <li><input type="reset" value="Cancel" onclick="location.href='/review/list'"/></li>
                                     </ul>
                                 </div>

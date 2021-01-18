@@ -30,6 +30,22 @@ router.get('/review/write', function(req, res, next) {
   res.render('./review/write.html');
 });
 
+router.post('/review/write/title=:title', function(req, res, next) {
+  if(req.method === "POST"){
+    req.on('data',function (data) {
+        console.log("data:", data);
+
+    })
+  }
+  let name = req.body.name;
+  let title = req.body.title;
+  let content = req.body.content;
+
+
+  console.log("name:", name, title, content);
+  res.render('./review/write/:title.html');
+});
+
 router.get('/review/modify', function(req, res, next) {
   res.render('./review/modify.html');
 });
