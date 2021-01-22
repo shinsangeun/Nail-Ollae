@@ -1,5 +1,8 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
+const db_config = require('../database/config');
+const conn = db_config.init();
+db_config.connect(conn);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,27 +26,31 @@ router.get('/reservation?date=', function(req, res, next) {
 });
 
 router.get('/review/list', function(req, res, next) {
-  res.render('./review/list.html');
+  res.render('./review/list.html', {list: rows});
+
+  /* TODO mysql 연동
+  let sql = "SELECT * FROM BOARD";
+  conn.query(sql, function (err, rows, fields) {
+      if(err) console.log('query is not...', err);
+      else res.render('./review/list.html', {list: rows});
+  })
+  */
 });
 
 router.get('/review/write', function(req, res, next) {
   res.render('./review/write.html');
 });
 
-router.post('/review/write/title=:title', function(req, res, next) {
-  if(req.method === "POST"){
-    req.on('data',function (data) {
-        console.log("data:", data);
+router.post('/review/write', function(req, res, next) {
+  console.log("Req:", req.body.title);
 
-    })
-  }
   let name = req.body.name;
   let title = req.body.title;
   let content = req.body.content;
+  let datas = [name, title, content];
+  let category = req.body.category;
 
-
-  console.log("name:", name, title, content);
-  res.render('./review/write/:title.html');
+  res.render('./review/list.html');
 });
 
 router.get('/review/modify', function(req, res, next) {
