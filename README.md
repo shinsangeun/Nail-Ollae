@@ -31,3 +31,16 @@
 
 ### 2. 관리자 페이지
 - 이달의 아트 사진 올리는 게시판
+
+### 3. 스크린 샷
+##### 1. Hompage
+![index1](/public/images/capture/index_1.png)
+![index2](/public/images/capture/index_2.png)
+![index3](/public/images/capture/index_3.png)
+
+##### 2. Reservation
+![Reservation](/public/images/capture/reservation.png)
+
+##### 3. 네일아트 후기
+![review](/public/images/capture/review.png)
+
