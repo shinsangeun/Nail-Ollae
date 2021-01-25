@@ -1,7 +1,5 @@
-# NailOllae?(네일 올래?)
----
- - 네일 아트 예약 서비스 
- 
+# Nail-Ollae(네일 올래?)
+
 ## 구현 내용
 
 ### 1. 회원 전용 페이지
@@ -32,7 +30,9 @@
 ### 2. 관리자 페이지
 - 이달의 아트 사진 올리는 게시판
 
-### 3. 스크린 샷
+
+## 스크린 샷
+
 ##### 1. Hompage
 ![index1](/public/images/capture/index_1.png)
 ![index2](/public/images/capture/index_2.png)
