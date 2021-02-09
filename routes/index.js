@@ -71,4 +71,8 @@ router.get('/review/modify', function(req, res, next) {
   res.render('./review/modify.html');
 });
 
+router.get('/myPage', function(req, res, next) {
+  res.render('./myPage/myPage.html');
+});
+
 module.exports = router;
