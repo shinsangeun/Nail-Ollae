@@ -7,31 +7,22 @@
     <link rel="stylesheet" href="../stylesheets/main.css" />
     <link rel="shortcut icon" href="../images/nailollae.png"/>
 </head>
+
 <script>
     function checkSave() {
         if(window.confirm("게시글을 저장 하시겠습니까?")){
             $.ajax({
-                url: "review/list",
+                url: "review/write",
                 type: 'POST',
-                data: {
-                    test:$("#title").val()
-                },
-                dataType: 'json',
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (err) {
-                    alert(err);
-                }
+                dataType: 'json'
             })
-            // TODO 게시글 저장 후 페이지 이동
-            window.location.href="/review/list.html";
         }else{
             // TODO 게시글 저장 하지 않고 리스트로 이동
             window.location.href="/review/list"
         }
     }
 </script>
+
 <body class="is-preload">
 
 <!-- Wrapper -->
@@ -71,18 +62,18 @@
                         <form method="post" action="#">
                             <div class="row gtr-uniform">
                                 <div class="col-12 col-12-xsmall">
-                                    <input type="text" name="demo-title" id="title" value="" placeholder="Title" />
+                                    <input type="text" name="title" id="title" value="" placeholder="Title" />
                                 </div>
 
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+                                    <input type="text" name="name" id="name" value="" placeholder="Name" />
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+                                    <input type="email" name="email" id="email" value="" placeholder="Email" />
                                 </div>
                                 <!-- Break -->
                                 <div class="col-12">
-                                    <select name="demo-category" id="demo-category">
+                                    <select name="demo-category" id="category">
                                         <option value="">- Category -</option>
                                         <option value="1">이달의 아트</option>
                                         <option value="1">기본 젤네일</option>
@@ -107,7 +98,7 @@
 
                                 <!-- Break -->
                                 <div class="col-12">
-                                    <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+                                    <textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
                                 </div>
                                 <!-- Break -->
                                 <div class="col-12">

@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const app = express();
+
+let entries = [];
+app.locals.entries = entries;
+
+/*
 const db_config = require('../database/config');
 const conn = db_config.init();
 db_config.connect(conn);
+*/
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -26,7 +33,8 @@ router.get('/reservation?date=', function(req, res, next) {
 });
 
 router.get('/review/list', function(req, res, next) {
-  res.render('./review/list.html', {list: rows});
+
+  res.render('./review/list.html');
 
   /* TODO mysql 연동
   let sql = "SELECT * FROM BOARD";
@@ -42,15 +50,21 @@ router.get('/review/write', function(req, res, next) {
 });
 
 router.post('/review/write', function(req, res, next) {
-  console.log("Req:", req.body.title);
+  console.log("Req:", req.body);
 
-  let name = req.body.name;
-  let title = req.body.title;
-  let content = req.body.content;
-  let datas = [name, title, content];
-  let category = req.body.category;
-
-  res.render('./review/list.html');
+  if(req.body.title === '' || req.body.body === ''){
+    //TODO 수정 필요
+    res.status(400).send("제목과 내용을 입력해 주세요.");
+  }else{
+    entries.push({
+      title: req.body.title,
+      name: req.body.name,
+      email: req.body.email,
+      message: req.body.message,
+      published: new Date()
+    })
+    res.redirect('./list');
+  }
 });
 
 router.get('/review/modify', function(req, res, next) {
