@@ -33,10 +33,19 @@
             });
         })
         // 예약하기 버튼
-        function checkReserve(data) {
+        function checkReserve() {
             if(data !== null){
                 console.log(data);
+            }else{
+                console.log("데이터 없음")
             }
+        }
+
+        //selected 값 선택
+        function onChange() {
+            let option = document.getElementById("category");
+            let option2 = option.options[document.getElementById("category").selectedIndex].value;
+            console.log("option2:", option2);
         }
     </script>
 
@@ -77,24 +86,36 @@
                         <h4>Reservation</h4>
                         <p>날짜 선택: <input type="text" id="datepicker"></p>
                         <div class="table-wrapper">
-                            <table>
+                            <table id="reserve">
                                 <thead>
                                 <tr>
                                     <th>시간</th>
                                     <th>시술 선택</th>
-                                    <th>예약 여부</th>
+                                    <th>예약</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                             <!--   <script>
+                                    //TODO 테이블 반복문 처리
+                                    var table = document.getElementById("reserve");
+                                    for (var i = 0, row; row = table.rows[i]; i++) {
+                                        //iterate through rows
+                                        //rows would be accessed using the "row" variable assigned in the for loop
+                                        for (var j = 0, col; col = row.cells[j]; j++) {
+                                            //iterate through columns
+                                            //columns would be accessed using the "col" variable assigned in the for loop
+                                        }
+                                    }
+                                </script>-->
                                 <tr>
                                     <td>10:00</td>
                                     <td>
-                                        <select name="demo-category" id="demo-category">
+                                        <select name="category" id="category" onchange="onChange();">
                                             <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
+                                            <option value="이달의 아트">이달의 아트</option>
+                                            <option value="젤네일">젤네일</option>
+                                            <option value="젤패디">젤패디</option>
+                                            <option value="속눈썹 연장">속눈썹 연장</option>
                                         </select>
                                     </td>
                                     <td><button onclick="checkReserve()">예약 하기</button></td>
