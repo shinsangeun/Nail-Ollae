@@ -9,29 +9,9 @@
 
 	</head>
 	<script src="javascripts/menu.js"></script>
-	<script>
-		// TODO
-		function checkMobile() {
-			var varUA = navigator.userAgent.toLowerCase();
-
-			console.log("varUA:", varUA);
-
-			if(varUA.indexOf('android') > -1){
-				return "android";
-			}else if(varUA.indexOf('iphone') > -1 || varUA.indexOf('ipad') > -1 || varUA.indexOf('ios') || varUA.indexOf('mac') > -1){
-				console.log("ios")
-				return "ios";
-			}else{
-				return "other";
-			}
-		}
-
-	</script>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
@@ -40,7 +20,7 @@
 								<header id="header">
 									<a href="/" class="logo"><strong>Nail</strong> Ollae?</a>
 									<ul class="icons">
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="/login" class="button primary" >로그인</a></li>
 									</ul>
 								</header>
 
@@ -60,7 +40,7 @@
 											<li>속눈썹 펌 &emsp;&emsp;&emsp; 30,000원</li>
 										 </p>
 										<ul class="actions">
-											<li><a href="/reservation" class="button big" onclick="checkMobile()">예약하기</a></li>
+											<li><a href="/reservation" class="button big">예약하기</a></li>
 										</ul>
 									</div>
 									<span class="image object">

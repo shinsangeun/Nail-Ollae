@@ -75,4 +75,8 @@ router.get('/myPage', function(req, res, next) {
   res.render('./myPage/myPage.html');
 });
 
+router.get('/login', function(req, res, next) {
+  res.render('./login/login.html');
+});
+
 module.exports = router;

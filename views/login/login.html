@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+    <meta charset="utf-8"/>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <title>네일 올래?</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="stylesheets/main.css" />
+    <link rel="shortcut icon" href="images/nailollae.png"/>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+                <a href="/" class="logo"><strong>Nail</strong> Ollae?</a>
+                <ul class="icons">
+                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                </ul>
+            </header>
+
+            <!-- Content -->
+            <section>
+                <header class="main">
+                    <h1>Login</h1>
+                </header>
+
+                <!-- Content -->
+                <h2 id="content">로그인</h2>
+                <p><b>네일 올래?</b>를 방문해 주셔서 감사합니다.<br/>
+                    로그인 후 서비스를 예약하실 수 있습니다!🌹</p>
+
+               <hr class="major" />
+
+                    <!-- 네이버 아이디로 로그인 버튼 노출 영역 -->
+                    <div id="naverIdLogin"></div>
+                    <!-- 네이버 아이디 로그인 초기화 Script -->
+                    <script type="text/javascript">
+                        let naverLogin = new naver.LoginWithNaverId(
+                            {
+                                clientId: "oqDVdjHj1B7jbQzCO3pb",
+                                callbackUrl: "http://nail-ollae.com/Api/Member/Oauth2C",
+                                isPopup: false, /* 팝업을 통한 연동처리 여부 */
+                                loginButton: {color: "green", type: 3, height: 40} /* 로그인 버튼의 타입을 지정 */
+                            }
+                        );
+
+                        /* 설정정보를 초기화하고 연동을 준비 */
+                        naverLogin.init();
+
+                        /* (4) Callback의 처리. 정상적으로 Callback 처리가 완료될 경우 main page로 redirect(또는 Popup close) */
+                        window.addEventListener('load', function () {
+                            naverLogin.getLoginStatus(function (status) {
+                                if (status) {
+                                    /* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+                                    var email = naverLogin.user.getEmail();
+                                    if( email == undefined || email == null) {
+                                        alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+                                        /* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+                                        naverLogin.reprompt();
+                                        return;
+                                    }
+                                    window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/index.html");
+                                } else {
+                                    console.log("callback 처리에 실패하였습니다.");
+                                }
+                            });
+                        });
+                    </script>
+
+                    <!-- 카카오 로그인 버튼 노출 영역 -->
+                    <script>
+                        // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+                        Kakao.init('e63f92e9650fbfc759e3de907dd92945');
+
+                        // SDK 초기화 여부를 판단합니다.
+                        console.log(Kakao.isInitialized());
+                    </script>
+                    <a id="custom-login-btn" href="javascript:loginWithKakao()">
+                        <img
+                                src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+                                width="180"
+                        />
+                    </a>
+                    <p id="token-result"></p>
+                    <script type="text/javascript">
+                        function loginWithKakao() {
+                            Kakao.Auth.authorize({
+                                redirectUri: 'http://localhost:3000'
+                            })
+                        }
+                        // 아래는 데모를 위한 UI 코드입니다.
+                        displayToken()
+                        function displayToken() {
+                            const token = getCookie('dShsu3empcfDpP7u4ENBXbS6rCzos6dGvJxROwo9dJkAAAF3pMNrsQ')
+                            if(token) {
+                                Kakao.Auth.setAccessToken(token)
+                                Kakao.Auth.getStatusInfo(({ status }) => {
+                                    if(status === 'connected') {
+                                        document.getElementById('token-result').innerText = 'login success. token: ' + Kakao.Auth.getAccessToken()
+                                    } else {
+                                        Kakao.Auth.setAccessToken(null)
+                                    }
+                                })
+                            }
+                        }
+                        function getCookie(name) {
+                            const value = "; " + document.cookie;
+                            const parts = value.split("; " + name + "=");
+                            if (parts.length === 2) return parts.pop().split(";").shift();
+                        }
+                    </script>
+            </section>
+
+        </div>
+    </div>
+
+    <!--TODO Sidebar 분리-->
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+
+            <!--TODO Search 상단바 분리-->
+            <!-- Search -->
+            <section id="search" class="alt">
+                <form method="post" action="#">
+                    <input type="text" name="query" id="query" placeholder="Search" />
+                </form>
+            </section>
+
+            <!--TODO 메뉴 html 분리-->
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">Homepage</a></li>
+                    <li><a href="/generic">Generic</a></li>
+                    <li><a href="/reservation">Reservation</a></li>
+                    <li><a href="/review/list">Review</a></li>
+                    <li><a href="/elements">Elements</a></li>
+                </ul>
+            </nav>
+
+            <!--TODO Footer 분리-->
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/browser.min.js"></script>
+<script src="javascripts/breakpoints.min.js"></script>
+<script src="javascripts/util.js"></script>
+<script src="javascripts/main.js"></script>
+
+</body>
+</html>
