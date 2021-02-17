@@ -45,16 +45,13 @@
     </script>
 </head>
 <body class="is-preload">
-
 <!-- Wrapper -->
 <div id="wrapper">
-
     <!-- Main -->
     <div id="main">
         <div class="inner">
             <!-- Header -->
             <div id="commonHeader"></div>
-
             <!-- Content -->
             <section>
                 <header class="main">
@@ -72,169 +69,51 @@
                     <div class="col-12 col-12-medium">
                         <!-- Table -->
                         <h4>Reservation</h4>
-                        <p>날짜 선택: <input type="text" id="datepicker"></p>
                         <div class="table-wrapper">
-                            <table>
+                            <table id="reserve">
                                 <thead>
                                 <tr>
                                     <th>날짜</th>
                                     <th>시간</th>
-                                    <th>시술 내용</th>
-                                    <th>예약 여부</th>
+                                    <th>시술</th>
+                                    <th>예약</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>2020/12/11</td>
-                                    <td>10:00</td>
                                     <td>
-                                        <select name="demo-category" id="demo-category">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
+                                        <input type="text" id="datepicker" placeholder="날짜를 선택해 주세요">
+                                    </td>
+                                    <td>
+                                        <select name="time" id="time" onchange="onChange();">
+                                            <option value="">- 시간 선택 -</option>
+                                            <option value="10">10:00</option>
+                                            <option value="11">11:00</option>
+                                            <option value="12">12:00</option>
+                                            <option value="13">13:00</option>
+                                            <option value="14">14:00</option>
+                                            <option value="15">15:00</option>
                                         </select>
                                     </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>11:00</td>
                                     <td>
-                                        <select name="demo-category" id="demo-category1">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
+                                        <select name="category" id="category" onchange="onChange();">
+                                            <option value="">- 시술 선택 -</option>
+                                            <option value="이달의 아트">이달의 아트</option>
+                                            <option value="젤네일">젤네일</option>
+                                            <option value="젤패디">젤패디</option>
+                                            <option value="속눈썹 연장">속눈썹 연장</option>
                                         </select>
                                     </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>12:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category2">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>13:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category3">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>14:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category4">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>15:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category5">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>16:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category6">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>17:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category7">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>18:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category8">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
-                                </tr>
-                                <tr>
-                                    <td>2020/12/11</td>
-                                    <td>19:00</td>
-                                    <td>
-                                        <select name="demo-category" id="demo-category9">
-                                            <option value="">- Category -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="1">기본 젤네일</option>
-                                            <option value="1">젤 패디</option>
-                                            <option value="1">속눈썹 연장</option>
-                                        </select>
-                                    </td>
-                                    <td><button onclick="">예약 하기</button></td>
+                                    <td><button id="btnReserve" onclick="checkReserve()">예약 하기</button></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
             </section>
-
         </div>
     </div>
-
     <!-- Menu -->
     <div id="menu"></div>
 </div>
