@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../stylesheets/main.css" />
     <link rel="shortcut icon" href="../images/nailollae.png"/>
-
-
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- menu 불러오기-->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#menu").load("/common/menu");
+        })
+    </script>
     <script type="text/javascript">
         $.noConflict();
         jQuery(document).ready(function ($) {
@@ -34,7 +39,6 @@
             });
         })
     </script>
-
 </head>
 <body class="is-preload">
 
@@ -212,7 +216,7 @@
                                     <td>2020/12/11</td>
                                     <td>19:00</td>
                                     <td>
-                                        <select name="demo-category" id="demo-category4">
+                                        <select name="demo-category" id="demo-category9">
                                             <option value="">- Category -</option>
                                             <option value="1">이달의 아트</option>
                                             <option value="1">기본 젤네일</option>
@@ -233,82 +237,8 @@
         </div>
     </div>
 
-    <!--TODO Sidebar 분리-->
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <div class="inner">
-
-            <!--TODO Search 상단바 분리-->
-            <!-- Search -->
-            <section id="search" class="alt">
-                <form method="post" action="#">
-                    <input type="text" name="query" id="query" placeholder="Search" />
-                </form>
-            </section>
-
-            <!--TODO 메뉴 html 분리-->
-            <!-- Menu -->
-            <nav id="menu">
-                <header class="major">
-                    <h2>Menu</h2>
-                </header>
-                <ul>
-                    <li><a href="/">Homepage</a></li>
-                    <li><a href="/generic">Generic</a></li>
-                    <li><a href="/reservation">Reservation</a></li>
-                    <li><a href="/review/list">Review</a></li>
-                    <li><a href="/elements">Elements</a></li>
-                </ul>
-            </nav>
-
-            <!-- Section -->
-            <section>
-                <header class="major">
-                    <h2>Ante interdum</h2>
-                </header>
-                <div class="mini-posts">
-                    <article>
-                        <a href="#" class="image"><img src="../images/pic07.jpg" alt="" /></a>
-                        <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-                    </article>
-                    <article>
-                        <a href="#" class="image"><img src="../images/pic08.jpg" alt="" /></a>
-                        <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-                    </article>
-                    <article>
-                        <a href="#" class="image"><img src="../images/pic09.jpg" alt="" /></a>
-                        <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-                    </article>
-                </div>
-                <ul class="actions">
-                    <li><a href="#" class="button">More</a></li>
-                </ul>
-            </section>
-
-            <!-- Section -->
-            <section>
-                <header class="major">
-                    <h2>Get in touch</h2>
-                </header>
-                <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                <ul class="contact">
-                    <li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-                    <li class="icon solid fa-phone">(000) 000-0000</li>
-                    <li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-                        Nashville, TN 00000-0000</li>
-                </ul>
-            </section>
-
-
-            <!--TODO Footer 분리-->
-            <!-- Footer -->
-            <footer id="footer">
-                <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-            </footer>
-
-        </div>
-    </div>
-
+    <!-- Menu -->
+    <div id="menu"></div>
 </div>
 
 <!-- Scripts -->
