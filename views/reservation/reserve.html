@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../stylesheets/main.css" />
     <link rel="shortcut icon" href="../images/nailollae.png"/>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- menu 불러오기-->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
@@ -16,6 +13,9 @@
             $("#menu").load("/common/menu");
         })
     </script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         $.noConflict();
         jQuery(document).ready(function ($) {
@@ -41,7 +41,10 @@
         })
         // 예약하기 버튼
         function checkReserve() {
-            alert("예약을 하시겠습니까?");
+            let pageUrl = window.location.search;
+            let date = pageUrl.split('=')[1];
+
+            alert("날짜: "+ date + "\n예약을 하시겠습니까?");
         }
 
         //selected 값 선택
@@ -60,7 +63,6 @@
             })
         });
     </script>
-
 </head>
 <body class="is-preload">
 

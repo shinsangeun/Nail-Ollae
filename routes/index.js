@@ -79,4 +79,16 @@ router.get('/login', function(req, res, next) {
   res.render('./login/login.html');
 });
 
+router.get('/common/menu', function(req, res, next) {
+  res.render('./common/menu.html');
+});
+
+router.get('/common/banner', function(req, res, next) {
+  res.render('./common/banner.html');
+});
+
+router.get('/common/header', function(req, res, next) {
+  res.render('./common/header.html');
+});
+
 module.exports = router;
