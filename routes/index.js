@@ -50,8 +50,8 @@ router.post('/review/write', (req, res) => {
   if(req.body.title === '' || req.body.body === ''){
     res.status(400).send("제목과 내용을 입력해 주세요.");
   }else {
-    let sql = "INSERT INTO review (title, name, email, message, date) VALUES (?, ?, ?, ?, ?);";
-    let params = [req.body.title, req.body.name, req.body.email, req.body.message, new Date()];
+    let sql = "INSERT INTO review (title, name, email, message, image, date) VALUES (?, ?, ?, ?, ?, ?);";
+    let params = [req.body.title, req.body.name, req.body.email, req.body.message, req.body.image, new Date()];
 
     conn.query(sql, params,  (err, rows, fields) =>{
       if (err) {
