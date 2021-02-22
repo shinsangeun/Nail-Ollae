@@ -9,12 +9,31 @@
     <!-- menu 불러오기-->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(() => {
             $("#menu").load("/common/menu");
         })
 
-        $(document).ready(function () {
+        $(document).ready(() =>{
             $("#commonHeader").load("/common/header");
+        })
+
+        // Table 데이터 가져오기
+        $(document).ready(() => {
+            $.ajax({
+                url: "http://localhost:3000/review/modify/:id",
+                method: "GET",
+                success: (response) => {
+                    console.log("res:", response.data.length);
+
+                    if(response.data.length > 0){
+                        for(let index=0; index<response.data.length; index++){
+                            let cols = "";
+                            cols += '<td>' + response.data[index].title + '</td>';
+                            $("#title").append(cols);
+                        }
+                    }
+                }
+            })
         })
     </script>
 </head>
@@ -60,34 +79,34 @@
                         <form method="post" action="#">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+                                    <input type="text" name="title" id="title" value="" placeholder="title"/>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+                                    <input type="email" name="name" id="name" value="" readonly/>
                                 </div>
-                                <!-- Break -->
+                                <!-- 카테고리 선택 -->
                                 <div class="col-12">
                                     <select name="demo-category" id="demo-category">
                                         <option value="">- Category -</option>
                                         <option value="1">이달의 아트</option>
-                                        <option value="1">기본 젤네일</option>
-                                        <option value="1">젤 패디</option>
-                                        <option value="1">속눈썹 연장</option>
-                                        <option value="1">기타</option>
+                                        <option value="2">기본 젤네일</option>
+                                        <option value="3">젤 패디</option>
+                                        <option value="4">속눈썹 연장</option>
+                                        <option value="5">기타</option>
                                     </select>
                                 </div>
-                                <!-- Break -->
+                                <!-- 평점 -->
                                 <div class="col-4 col-12-small">
                                     <input type="radio" id="demo-priority-low" name="demo-priority" checked>
-                                    <label for="demo-priority-low">Low</label>
+                                    <label for="demo-priority-low">⭐️</label>
                                 </div>
                                 <div class="col-4 col-12-small">
                                     <input type="radio" id="demo-priority-normal" name="demo-priority">
-                                    <label for="demo-priority-normal">Normal</label>
+                                    <label for="demo-priority-normal">⭐️⭐️⭐️</label>
                                 </div>
                                 <div class="col-4 col-12-small">
                                     <input type="radio" id="demo-priority-high" name="demo-priority">
-                                    <label for="demo-priority-high">High</label>
+                                    <label for="demo-priority-high">⭐️⭐️⭐️⭐️⭐️</label>
                                 </div>
 
                                 <!-- Break -->
@@ -105,9 +124,7 @@
                         </form>
                     </div>
                 </div>
-
             </section>
-
         </div>
     </div>
     <!-- Menu -->

@@ -28,8 +28,8 @@
                     console.log("res:", response.data.length);
 
                     if(response.data.length > 0){
-                        for(let index=0; index<response.data.length; index++){
-                            let newRow = $("<tr>");
+                        for(let index=0; index < response.data.length; index++){
+                            let newRow = $("<tr onclick=test()>");
                             let cols = "";
                             cols += '<td>' + response.data[index].id + '</td>';
                             cols += '<td>' + response.data[index].title + '</td>';
@@ -42,6 +42,10 @@
                 }
             })
         })
+
+        function test(id) {
+            location.href="http://localhost:3000/review/modify?id=1";
+        }
     </script>
 </head>
 
