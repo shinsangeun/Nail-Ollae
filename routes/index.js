@@ -64,10 +64,18 @@ router.post('/review/write', (req, res) => {
   }
 });
 
+//TODO 수정 필요
+router.get('/review/list?id=:id', (req, res) => {
+  let id = req.params.id;
+  console.log("id==>", id);
+  res.render('./review/view.html');
+});
+
 router.get('/review/modify', (req, res) => {
   res.render('./review/modify.html');
 });
 
+//TODO 수정 필요
 router.get('/review/modify/:id', (req, res) => {
   let id = req.params.id;
   console.log("id==>", id);
