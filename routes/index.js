@@ -1,15 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
-
-let entries = [];
-app.locals.entries = entries;
-
-/*
-const db_config = require('../database/config');
+const db_config = require('../db/config');
 const conn = db_config.init();
 db_config.connect(conn);
-*/
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -33,16 +26,18 @@ router.get('/reservation?date=', function(req, res, next) {
 });
 
 router.get('/review/list', function(req, res, next) {
-
   res.render('./review/list.html');
+});
 
-  /* TODO mysql 연동
-  let sql = "SELECT * FROM BOARD";
+router.get('/review/list/data', function(req, res, next) {
+  let sql = "SELECT * FROM review";
   conn.query(sql, function (err, rows, fields) {
-      if(err) console.log('query is not...', err);
-      else res.render('./review/list.html', {list: rows});
+    if(err){
+      console.log('query is not...', err);
+    }else{
+      res.send({data: rows});
+    }
   })
-  */
 });
 
 router.get('/review/write', function(req, res, next) {
@@ -53,17 +48,19 @@ router.post('/review/write', function(req, res, next) {
   console.log("Req:", req.body);
 
   if(req.body.title === '' || req.body.body === ''){
-    //TODO 수정 필요
     res.status(400).send("제목과 내용을 입력해 주세요.");
-  }else{
-    entries.push({
-      title: req.body.title,
-      name: req.body.name,
-      email: req.body.email,
-      message: req.body.message,
-      published: new Date()
+  }else {
+    let sql = "INSERT INTO review (title, name, email, message, date) VALUES (?, ?, ?, ?, ?);";
+    let params = [req.body.title, req.body.name, req.body.email, req.body.message, new Date()];
+
+    conn.query(sql, params, function (err, rows, fields) {
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        console.log("rows:", rows);
+        res.render('./review/list.html', {list: rows});
+      }
     })
-    res.redirect('./list');
   }
 });
 

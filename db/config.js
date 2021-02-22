@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 const db_info = {
-    host: 'localhost',
+    host: '127.0.0.1',
     port: '3306',
     user: 'root',
     password: 'ssee',
-    database: 'db_name'
+    database: 'nailOllae'
 }
 
 module.exports = {

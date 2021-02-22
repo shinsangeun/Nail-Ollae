@@ -18,18 +18,32 @@
         $(document).ready(function () {
             $("#commonHeader").load("/common/header");
         })
+
+        // Table 데이터 가져오기
+        $(document).ready(() => {
+            $.ajax({
+                url: "http://localhost:3000/review/list/data",
+                method: "GET",
+                success: (response) => {
+                    console.log("res:", response.data.length);
+
+                    if(response.data.length > 0){
+                        for(let index=0; index<response.data.length; index++){
+                            let newRow = $("<tr>");
+                            let cols = "";
+                            cols += '<td>' + response.data[index].id + '</td>';
+                            cols += '<td>' + response.data[index].title + '</td>';
+                            cols += '<td>' + response.data[index].name + '</td>';
+                            cols += '<td>' + response.data[index].date + '</td>';
+                            newRow.append(cols);
+                            $("#reviewList .tbody").append(newRow);
+                        }
+                    }
+                }
+            })
+        })
     </script>
 </head>
-
-<script>
-    //TODO entries 받아 와서 테이블 출력
-    let entries = [];
-    let str = '<ul>';
-
-    entries.forEach(function (slide) {
-        str += '<li>' + slide + '</li>';
-    });
-</script>
 
 <body class="is-preload">
 <!-- Wrapper -->
@@ -51,7 +65,6 @@
                 <p><b>네일올래?</b>를 방문해 주신 고객님들의 소중한 후기를 작성해 주시면 됩니다. <br/>
                     <u>좋아요와 댓글</u>이 많은 후기를 작성해 주시면, 이달의 후기를 선정하여 소정의 적립금을 선물로 드립니다!🎁</p>
                 <hr class="major" />
-
                 <a href="/review/write" class="button primary" style="float: right">작성하기</a>
 
                 <br/><br/><br/>
@@ -62,46 +75,16 @@
                         <!-- Table -->
                         <h4>Review</h4>
                         <div class="table-wrapper">
-                            <table>
+                            <table id="reviewList">
                                 <thead>
                                 <tr>
+                                    <th>순서</th>
                                     <th>제목</th>
-                                    <th>내용</th>
                                     <th>작성자</th>
                                     <th>날짜</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Item1</td>
-                                    <td>Ante turpis integer aliquet porttitor.</td>
-                                    <td>29.99</td>
-                                    <td>2020/12/11</td>
-                                </tr>
-                                <tr>
-                                    <td>Item2</td>
-                                    <td>Vis ac commodo adipiscing arcu aliquet.</td>
-                                    <td>19.99</td>
-                                    <td>2020/12/11</td>
-                                </tr>
-                                <tr>
-                                    <td>Item3</td>
-                                    <td> Morbi faucibus arcu accumsan lorem.</td>
-                                    <td>29.99</td>
-                                    <td>2020/12/11</td>
-                                </tr>
-                                <tr>
-                                    <td>Item4</td>
-                                    <td>Vitae integer tempus condimentum.</td>
-                                    <td>19.99</td>
-                                    <td>2020/12/11</td>
-                                </tr>
-                                <tr>
-                                    <td>Item5</td>
-                                    <td>Ante turpis integer aliquet porttitor.</td>
-                                    <td>29.99</td>
-                                    <td>2020/12/11</td>
-                                </tr>
+                                <tbody class="tbody">
                                 </tbody>
                             </table>
                         </div>
@@ -119,9 +102,7 @@
                         </ul>
                     </div>
                 </div>
-
             </section>
-
         </div>
     </div>
     <!-- Menu -->
