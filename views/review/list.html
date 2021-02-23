@@ -26,7 +26,6 @@
                 method: "GET",
                 success: (response) => {
                     console.log("res:", response.data.length);
-
                     if(response.data.length > 0){
                         for(let index=0; index < response.data.length; index++){
                             let newRow = $("<tr onclick=test()>");
@@ -38,13 +37,29 @@
                             newRow.append(cols);
                             $("#reviewList .tbody").append(newRow);
                         }
+                    }else if(response.data.length === 0){
+                        let newRow = $("<tr onclick=test(1)>");
+                        let cols = "";
+                        cols += '<td> </td>';
+                        cols += '<td> </td>';
+                        cols += '<td>등록된 후기가 없습니다.</td>';
+                        cols += '<td> </td>';
+                        newRow.append(cols);
+                        $("#reviewList .tbody").append(newRow);
                     }
                 }
             })
         })
 
+        $(function () {
+            $("reviewList tr td").click(function () {
+                let txt = $(this).text();
+                alert(txt);
+            })
+        })
+
         function test(id) {
-            location.href="http://localhost:3000/review/modify?id=1";
+            window.location.href="http://localhost:3000/review/list?id=" + id;
         }
     </script>
 </head>
@@ -93,6 +108,7 @@
                             </table>
                         </div>
 
+                        <!-- TODO 페이징 처리 필요 -->
                         <ul class="pagination">
                             <li><span class="button disabled">Prev</span></li>
                             <li><a href="#" class="page active">1</a></li>

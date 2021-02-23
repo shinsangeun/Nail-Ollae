@@ -64,8 +64,8 @@ router.post('/review/write', (req, res) => {
   }
 });
 
-//TODO 수정 필요
-router.get('/review/list?id=:id', (req, res) => {
+/* TODO 수정 필요 */
+router.get('/review/list?id=1', (req, res) => {
   let id = req.params.id;
   console.log("id==>", id);
   res.render('./review/view.html');
@@ -75,7 +75,7 @@ router.get('/review/modify', (req, res) => {
   res.render('./review/modify.html');
 });
 
-//TODO 수정 필요
+/* TODO 수정 필요 */
 router.get('/review/modify/:id', (req, res) => {
   let id = req.params.id;
   console.log("id==>", id);
@@ -110,6 +110,30 @@ router.get('/review/modify/:id', (req, res) => {
 
 router.get('/myPage', (req, res) => {
   res.render('./myPage/myPage.html');
+});
+
+/* 적립금 조회 */
+router.get('/myPage/balance', (req, res) => {
+  let sql = "SELECT * FROM mypage";
+  conn.query(sql,  (err, rows, fields) => {
+    if(err){
+      console.log('query is not...', err);
+    }else{
+      res.send({data: rows});
+    }
+  })
+});
+
+/* 예약 조회 */
+router.get('/myPage/reservation', (req, res) => {
+  let sql = "SELECT * FROM reservation";
+  conn.query(sql,  (err, rows, fields) => {
+    if(err){
+      console.log('query is not...', err);
+    }else{
+      res.send({data: rows});
+    }
+  })
 });
 
 router.get('/login', (req, res) => {
