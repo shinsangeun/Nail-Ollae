@@ -71,6 +71,24 @@ router.get('/review/list?id=1', (req, res) => {
   res.render('./review/view.html');
 });
 
+/* TODO Test 페이지 수정 필요 */
+router.get('/review/test', (req, res) => {
+  res.render('./review/view.html');
+});
+
+/* TODO Test 페이지 수정 필요 */
+router.get('/review/test/id', (req, res) => {
+  // 특정 id 받아 오도록 수정
+  let sql = "SELECT * FROM review where id = 20";
+  conn.query(sql,  (err, rows, fields) => {
+    if(err){
+      console.log('query is not...', err);
+    }else{
+      res.send({data: rows});
+    }
+  })
+});
+
 router.get('/review/modify', (req, res) => {
   res.render('./review/modify.html');
 });

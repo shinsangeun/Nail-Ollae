@@ -20,8 +20,9 @@
 </head>
 
 <script>
-    function checkSave() {
-        if(window.confirm("게시글을 저장 하시겠습니까?")){
+    function checkModify() {
+        // TODO 로그인 체크
+        if(window.confirm("게시글을 수정 하시겠습니까?")){
             $.ajax({
                 url: "review/write",
                 type: 'POST',
@@ -31,6 +32,39 @@
             // TODO 게시글 저장 하지 않고 리스트로 이동
             window.location.href="/review/list"
         }
+    }
+
+    // 적립금 현황
+    $(document).ready(() => {
+        $.ajax({
+            url: "http://localhost:3000/review/test/id",
+            method: "GET",
+            success: (response) => {
+                console.log("res:", response.data[0]);
+                if(response.data.length > 0){
+                    let cols = "";
+                    /*let name = response.date[0].name;
+                    let message = response.date[0].message;*/
+                    let like = response.data[0].like;
+                    /*console.log("name:", name, message);
+
+                    cols += '<input type="text" name="date" id="date" value=" '+ date +'" />';
+                    cols += '<input type="text" value="' + name + ' ">';*/
+                   /* cols += '<textarea value="' + message + '" rows="6">';*/
+                    cols += '<input type="button" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(1)">';
+                    console.log(cols);
+                    $(".message").append(cols);
+                    $(".like").append(cols);
+                }
+            }
+        })
+    })
+
+    // TODO 좋아요 기능 추가
+    function addLike(like) {
+        console.log("like:", like);
+        like++;
+        return like;
     }
 </script>
 
@@ -50,8 +84,8 @@
                 </header>
 
                 <!-- Content -->
-                <h2 id="content">후기 작성 페이지</h2>
-                <p><b>네일올래?</b>를 방문해 주신 고객님들의 소중한 후기를 작성해 주시면 됩니다. <br/>
+                <h2 id="content">후기</h2>
+                <p><b>네일올래?</b>를 방문해 주신 고객님들의 소중한 후기 입니다. <br/>
                     <u>좋아요와 댓글</u>이 많은 후기를 작성해 주시면, 이달의 후기를 선정하여 소정의 적립금을 선물로 드립니다!🎁</p>
                 <hr class="major" />
 
@@ -61,18 +95,15 @@
 
                         <!-- Form -->
                         <h3>Form</h3>
-
                         <form method="post" action="#">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" name="title" id="title" value="" placeholder="Title" />
+                                    <input type="text" name="date" id="date" value="" placeholder="작성 날짜" />
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" name="name" id="name" value="" placeholder="Name" />
+                                    <input type="text" name="name" id="name" value="" placeholder="작성자" />
                                 </div>
-                                <div class="col-12 col-12-xsmall">
-                                    <input type="file" name="image" id="image" accept="image/png, image/jpeg"/>
-                                </div>
+
                                 <!-- 카테고리 선택 -->
                                 <div class="col-12">
                                     <select name="demo-category" id="category">
@@ -98,16 +129,21 @@
                                     <label for="demo-priority-high">⭐⭐⭐⭐⭐</label>
                                 </div>
 
+                                <div class="col-12">
+                                    <textarea name="picture" id="picture" placeholder="후기 사진" rows="6"></textarea>
+                                </div>
+
                                 <!-- Break -->
                                 <div class="col-12">
-                                    <textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
+                                    <textarea name="message" class="message"></textarea>
                                 </div>
                                 <!-- Break -->
                                 <div class="col-12">
                                     <ul class="actions">
                                         <!-- TODO 수정 필요 -->
-                                        <li><input type="submit" value="Save" onclick="checkSave()" class="primary"/></li>
-                                        <li><input type="reset" value="Cancel" onclick="location.href='/review/list'"/></li>
+                                        <div type="button" class="like"></div>
+                                        <li><input type="submit" value="Modify" onclick="checkModify()" class="primary" style="float: right"/></li>
+                                        <li><input type="reset" value="List" onclick="location.href='/review/list'"/></li>
                                     </ul>
                                 </div>
                             </div>
