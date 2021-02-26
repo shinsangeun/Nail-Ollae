@@ -34,28 +34,32 @@
         }
     }
 
-    // 적립금 현황
+    // DB 내용 조회
     $(document).ready(() => {
         $.ajax({
             url: "http://localhost:3000/review/test/id",
             method: "GET",
             success: (response) => {
                 console.log("res:", response.data[0]);
-                if(response.data.length > 0){
-                    let cols = "";
-                    /*let name = response.date[0].name;
-                    let message = response.date[0].message;*/
-                    let like = response.data[0].like;
-                    /*console.log("name:", name, message);
+                let likeBtn = "";
+                let messageText = "";
+                let dateText = "";
+                let nameText = "";
 
-                    cols += '<input type="text" name="date" id="date" value=" '+ date +'" />';
-                    cols += '<input type="text" value="' + name + ' ">';*/
-                   /* cols += '<textarea value="' + message + '" rows="6">';*/
-                    cols += '<input type="button" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(1)">';
-                    console.log(cols);
-                    $(".message").append(cols);
-                    $(".like").append(cols);
-                }
+                let date = response.data[0].date.split('T')[0];
+                let name = response.data[0].name;
+                let like = response.data[0].like;
+                let message = response.data[0].message;
+
+                dateText += '<input type="text" value="[작성일] ' + date + ' ">';
+                nameText += '<input type="text" value="[작성자] ' + name + ' ">';
+                likeBtn += '<input type="button" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(1)">';
+                messageText += '<textarea name="message" class="message" rows="6">' + message + '</textarea>';
+
+                $(".date").append(dateText);
+                $(".name").append(nameText);
+                $(".message").append(messageText);
+                $(".like").append(likeBtn);
             }
         })
     })
@@ -98,10 +102,12 @@
                         <form method="post" action="#">
                             <div class="row gtr-uniform">
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" name="date" id="date" value="" placeholder="작성 날짜" />
+                                    <!--작성 날짜-->
+                                    <div class="date"></div>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
-                                    <input type="text" name="name" id="name" value="" placeholder="작성자" />
+                                    <!--작성자-->
+                                    <div class="name"></div>
                                 </div>
 
                                 <!-- 카테고리 선택 -->
@@ -115,6 +121,7 @@
                                         <option value="5">기타</option>
                                     </select>
                                 </div>
+
                                 <!-- 평점 -->
                                 <div class="col-4 col-12-small">
                                     <input type="radio" id="demo-priority-low" name="demo-priority" checked>
@@ -135,12 +142,12 @@
 
                                 <!-- Break -->
                                 <div class="col-12">
-                                    <textarea name="message" class="message"></textarea>
+                                    <div type="textarea" class="message"></div>
                                 </div>
                                 <!-- Break -->
                                 <div class="col-12">
                                     <ul class="actions">
-                                        <!-- TODO 수정 필요 -->
+                                        <!--좋아요 버튼-->
                                         <div type="button" class="like"></div>
                                         <li><input type="submit" value="Modify" onclick="checkModify()" class="primary" style="float: right"/></li>
                                         <li><input type="reset" value="List" onclick="location.href='/review/list'"/></li>
