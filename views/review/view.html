@@ -45,19 +45,24 @@
                 let messageText = "";
                 let dateText = "";
                 let nameText = "";
+                let imageText = "";
 
                 let date = response.data[0].date.split('T')[0];
                 let name = response.data[0].name;
                 let like = response.data[0].like;
                 let message = response.data[0].message;
+                let image = response.data[0].image;
 
-                dateText += '<input type="text" value="[작성일] ' + date + ' ">';
-                nameText += '<input type="text" value="[작성자] ' + name + ' ">';
+                dateText += '<input type="text" value="[작성일] ' + date + ' " readonly>';
+                nameText += '<input type="text" value="[작성자] ' + name + ' " readonly>';
                 likeBtn += '<input type="button" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(1)">';
-                messageText += '<textarea name="message" class="message" rows="6">' + message + '</textarea>';
+                // TODO 이미지 조회
+                imageText += '<textarea name="message" class="picture" rows="6" readonly>' + image + '</textarea>';
+                messageText += '<textarea name="message" class="message" rows="6" readonly>' + message + '</textarea>';
 
                 $(".date").append(dateText);
                 $(".name").append(nameText);
+                $(".picture").append(imageText);
                 $(".message").append(messageText);
                 $(".like").append(likeBtn);
             }
@@ -137,7 +142,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <textarea name="picture" id="picture" placeholder="후기 사진" rows="6"></textarea>
+                                    <div type="textarea" class="picture"></div>
                                 </div>
 
                                 <!-- Break -->
