@@ -80,7 +80,22 @@ router.get('/review/test', (req, res) => {
 router.get('/review/test/id', (req, res) => {
   // 특정 id 받아 오도록 수정
   let sql = "SELECT * FROM review where id = 20";
-  conn.query(sql,  (err, rows, fields) => {
+  conn.query(sql,  (err, rows) => {
+    if(err){
+      console.log('query is not...', err);
+    }else{
+      res.send({data: rows});
+    }
+  })
+});
+
+/* TODO 좋아요 페이지 id 파라미터 수정 필요 */
+router.post('/review/:id/like', (req, res) => {
+  console.log("param:", req.param.id);
+
+  // 특정 id 받아 오도록 수정
+  let sql = "UPDATE review SET likeCnt = likeCnt + 1 where id = 20";
+  conn.query(sql,  (err, rows) => {
     if(err){
       console.log('query is not...', err);
     }else{

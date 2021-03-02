@@ -49,13 +49,13 @@
 
                 let date = response.data[0].date.split('T')[0];
                 let name = response.data[0].name;
-                let like = response.data[0].like;
+                let like = response.data[0].likeCnt;
                 let message = response.data[0].message;
                 let image = response.data[0].image;
 
                 dateText += '<input type="text" value="[작성일] ' + date + ' " readonly>';
                 nameText += '<input type="text" value="[작성자] ' + name + ' " readonly>';
-                likeBtn += '<input type="button" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(1)">';
+                likeBtn += '<input type="button" id="like" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(20)">';
                 // TODO 이미지 조회
                 imageText += '<textarea name="message" class="picture" rows="6" readonly>' + image + '</textarea>';
                 messageText += '<textarea name="message" class="message" rows="6" readonly>' + message + '</textarea>';
@@ -70,10 +70,30 @@
     })
 
     // TODO 좋아요 기능 추가
-    function addLike(like) {
-        console.log("like:", like);
-        like++;
-        return like;
+    function addLike(id) {
+        $(document).ready(() => {
+            $.ajax({
+                url: "http://localhost:3000/review/" + id + "/like",
+                method: "POST",
+                success: (response) => {
+                    console.log("response::", response, id);
+                    $.ajax({
+                        url: "http://localhost:3000/review/test/id",
+                        method: "GET",
+                        success: (response) => {
+                            let like = response.data[0].likeCnt;
+                            var elem = document.getElementById("like");
+                            console.log("ele:", elem);
+
+                            // TODO 버튼 한번 더 클릭시 싫어요 기능 구현
+                            if(elem.value !== null){
+                                elem.value = ('❤️ 좋아요: ' + like + " 개");
+                            }
+                        }
+                    })
+                }
+            })
+        });
     }
 </script>
 
