@@ -64,22 +64,16 @@ router.post('/review/write', (req, res) => {
   }
 });
 
-/* TODO 수정 필요 */
-router.get('/review/list?id=1', (req, res) => {
-  let id = req.params.id;
-  console.log("id==>", id);
+router.get('/review/view/:id', (req, res) => {
   res.render('./review/view.html');
 });
 
-/* TODO Test 페이지 수정 필요 */
-router.get('/review/test', (req, res) => {
-  res.render('./review/view.html');
-});
+router.get('/review/data/:id', (req, res) => {
+  console.log("params2:", req.params.id.split('=')[1], req.query.id);
+  let id = req.params.id.split('=')[1];
 
-/* TODO Test 페이지 수정 필요 */
-router.get('/review/test/id', (req, res) => {
   // 특정 id 받아 오도록 수정
-  let sql = "SELECT * FROM review where id = 20";
+  let sql = "SELECT * FROM review where id =" + id;
   conn.query(sql,  (err, rows) => {
     if(err){
       console.log('query is not...', err);

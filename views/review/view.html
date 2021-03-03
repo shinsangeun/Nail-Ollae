@@ -4,8 +4,8 @@
     <title>네일 올래?</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="../stylesheets/main.css" />
-    <link rel="shortcut icon" href="../images/nailollae.png"/>
+    <link rel="stylesheet" href="../../stylesheets/main.css" />
+    <link rel="shortcut icon" href="../../images/nailollae.png"/>
     <!-- menu 불러오기-->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
@@ -36,8 +36,11 @@
 
     // DB 내용 조회
     $(document).ready(() => {
+        console.log("req.params:"+ window.location.pathname.split('/')[3].split('=')[1]);
+        let rowId = window.location.pathname.split('/')[3].split('=')[1];
+
         $.ajax({
-            url: "http://localhost:3000/review/test/id",
+            url: "http://localhost:3000/review/data/id=" + rowId,
             method: "GET",
             success: (response) => {
                 console.log("res:", response.data[0]);
@@ -46,22 +49,26 @@
                 let dateText = "";
                 let nameText = "";
                 let imageText = "";
+                let categoryText = "";
 
                 let date = response.data[0].date.split('T')[0];
                 let name = response.data[0].name;
                 let like = response.data[0].likeCnt;
                 let message = response.data[0].message;
                 let image = response.data[0].image;
+                let category = response.data[0].category;
 
                 dateText += '<input type="text" value="[작성일] ' + date + ' " readonly>';
                 nameText += '<input type="text" value="[작성자] ' + name + ' " readonly>';
-                likeBtn += '<input type="button" id="like" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike(20)">';
+                categoryText += '<input type="text" value="[카테고리] ' + category + ' " readonly>';
+                likeBtn += '<input type="button" id="like" value="❤️ 좋아요: ' + like + ' 개" onclick="addLike()">';
                 // TODO 이미지 조회
                 imageText += '<textarea name="message" class="picture" rows="6" readonly>' + image + '</textarea>';
                 messageText += '<textarea name="message" class="message" rows="6" readonly>' + message + '</textarea>';
 
                 $(".date").append(dateText);
                 $(".name").append(nameText);
+                $(".category").append(categoryText);
                 $(".picture").append(imageText);
                 $(".message").append(messageText);
                 $(".like").append(likeBtn);
@@ -70,15 +77,17 @@
     })
 
     // TODO 좋아요 기능 추가
-    function addLike(id) {
+    function addLike() {
+        let rowId = window.location.pathname.split('/')[3].split('=')[1];
+
         $(document).ready(() => {
             $.ajax({
-                url: "http://localhost:3000/review/" + id + "/like",
+                url: "http://localhost:3000/review/" + rowId + "/like",
                 method: "POST",
                 success: (response) => {
-                    console.log("response::", response, id);
+                    console.log("response::", response, rowId);
                     $.ajax({
-                        url: "http://localhost:3000/review/test/id",
+                        url: "http://localhost:3000/review/data/id=" + rowId,
                         method: "GET",
                         success: (response) => {
                             let like = response.data[0].likeCnt;
@@ -126,25 +135,18 @@
                         <h3>Form</h3>
                         <form method="post" action="#">
                             <div class="row gtr-uniform">
-                                <div class="col-6 col-12-xsmall">
+                                <div class="col-4 col-12-xsmall">
                                     <!--작성 날짜-->
                                     <div class="date"></div>
                                 </div>
-                                <div class="col-6 col-12-xsmall">
+                                <div class="col-4 col-12-xsmall">
                                     <!--작성자-->
                                     <div class="name"></div>
                                 </div>
 
                                 <!-- 카테고리 선택 -->
-                                <div class="col-12">
-                                    <select name="demo-category" id="category">
-                                        <option value="">- Category -</option>
-                                        <option value="1">이달의 아트</option>
-                                        <option value="2">젤네일</option>
-                                        <option value="3">젤 패디</option>
-                                        <option value="4">속눈썹 연장</option>
-                                        <option value="5">기타</option>
-                                    </select>
+                                <div class="col-4 col-12-xsmall">
+                                    <div class="category"></div>
                                 </div>
 
                                 <!-- 평점 -->
@@ -190,11 +192,11 @@
 </div>
 
 <!-- Scripts -->
-<script src="../javascripts/jquery.min.js"></script>
-<script src="../javascripts/browser.min.js"></script>
-<script src="../javascripts/breakpoints.min.js"></script>
-<script src="../javascripts/util.js"></script>
-<script src="../javascripts/main.js"></script>
+<script src="../../javascripts/jquery.min.js"></script>
+<script src="../../javascripts/browser.min.js"></script>
+<script src="../../javascripts/breakpoints.min.js"></script>
+<script src="../../javascripts/util.js"></script>
+<script src="../../javascripts/main.js"></script>
 
 </body>
 </html>
