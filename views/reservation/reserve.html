@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>네일 올래?</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="../stylesheets/main.css" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="../stylesheets/main.css"/>
     <link rel="shortcut icon" href="../images/nailollae.png"/>
     <!-- menu 불러오기-->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -19,44 +19,83 @@
     <script type="text/javascript">
         $.noConflict();
         jQuery(document).ready(function ($) {
-            $( "#datepicker" ).datepicker({
+            $("#datepicker").datepicker({
                 inline: true,
                 showOtherMonths: true,
                 showMonthAfterYear: true,
-                monthNames: ['01','02','03','04','05','06','07','08','09','10','11','12'],
-                dayNamesMin: ['일','월','화','수','목','금','토'],
+                monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
                 dateFormat: "yy-mm-dd"
             });
 
-            $('#datepicker').change(function (){
+            $('#datepicker').change(function () {
                 let date = $('#datepicker').val();
                 let pageUrl = window.location.pathname;
                 console.log("date:", date, pageUrl);
-                if(date !== null){
-                    // 날짜 url로 변경
+
+                if (date !== null) {
                     window.location.replace(pageUrl + "?date=" + date);
-                    console.log("date1:", date, pageUrl);
+                    console.log("date:", date, pageUrl);
+                }
+            });
+
+            $('#time').change(function () {
+                let time = $('#time').val();
+                let pageUrl = window.location;
+                console.log("time:", time, pageUrl);
+
+                if (time !== null) {
+                    window.location.replace(pageUrl + "&time=" + time);
+                    console.log("time:", time, pageUrl);
+                }
+            });
+
+            $('#category').change(function () {
+                let category = $('#category').val();
+                let pageUrl = window.location;
+                console.log("category:", category, pageUrl);
+
+                if (category !== null) {
+                    window.location.replace(pageUrl + "&category=" + category);
+                    console.log("category:", category, pageUrl);
                 }
             });
         })
         // 예약하기 버튼
-        function checkReserve() {
+        checkReserve = () => {
             let pageUrl = window.location.search;
+
             let date = pageUrl.split('=')[1];
+            date = date.split('&')[0];
+            console.log("pageUrl2:", pageUrl, date);
 
-            alert("날짜: "+ date + "\n예약을 하시겠습니까?");
+            let time = pageUrl.split('&')[1];
+            time = time.split('=')[1];
+            console.log("Time:", pageUrl, time);
+
+            let category = pageUrl.split('&')[2];
+            category = category.split('=')[1];
+            console.log("category:", decodeURI(category));
+
+            alert("✅ 날짜: " + date + "\n✅ 시간: " + time + "시" + "\n✅ 시술 내용: " + decodeURI(category) + "\n예약을 진행 하시겠습니까?");
+
+            //reservation 테이블에 저장
+            $(document).ready(() => {
+                $.ajax({
+                    url: "reservation/save",
+                    method: "POST",
+                    data: {
+                        date: date,
+                        time: time,
+                        category: category
+                    }
+                })
+            });
         }
 
-        //selected 값 선택
-        function onChange() {
-            let option = document.getElementById("category");
-            let option2 = option.options[document.getElementById("category").selectedIndex].value;
-            console.log("option2:", option2);
-        }
-
-        //Table
-        jQuery(document).ready(function(){
-            $('#reserve').find('td').each(function(i, el) {
+        //예약 Table
+        jQuery(document).ready(function () {
+            $('#reserve').find('td').each(function (i, el) {
                 let inputEl = $(el).children().get(0);
                 console.log("inputEl:", inputEl, $(inputEl).attr('id'));
                 $(el).before();
@@ -91,9 +130,10 @@
                 <h2 id="content">네일 예약</h2>
                 <p><b>네일올래?</b>를 방문해 주신 고객님들의 예약 페이지 입니다. <br/>
                     날짜 선택 후, 원하시는 시간대에 예약 해주시면 됩니다!🧸</p>
-                <hr class="major" />
+                <hr class="major"/>
 
                 <!-- Elements -->
+                <form method="post">
                 <div class="row gtr-200">
                     <div class="col-12 col-12-medium">
                         <!-- Table -->
@@ -114,7 +154,7 @@
                                         <input type="text" id="datepicker" placeholder="날짜를 선택해 주세요">
                                     </td>
                                     <td>
-                                        <select name="time" id="time" onchange="onChange();">
+                                        <select name="time" id="time">
                                             <option value="">- 시간 선택 -</option>
                                             <option value="10">10:00</option>
                                             <option value="11">11:00</option>
@@ -125,21 +165,24 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select name="category" id="category" onchange="onChange();">
+                                        <select name="category" id="category">
                                             <option value="">- 시술 선택 -</option>
-                                            <option value="1">이달의 아트</option>
-                                            <option value="2">젤네일</option>
-                                            <option value="3">젤패디</option>
-                                            <option value="4">속눈썹 연장</option>
+                                            <option value="이달의아트">이달의 아트</option>
+                                            <option value="젤네일">젤네일</option>
+                                            <option value="젤패디">젤패디</option>
+                                            <option value="속눈썹연장">속눈썹 연장</option>
                                         </select>
                                     </td>
-                                    <td><button id="btnReserve" onclick="checkReserve()">예약 하기</button></td>
+                                    <td>
+                                        <button id="btnReserve" onclick="checkReserve()">예약 하기</button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                </form>
             </section>
         </div>
     </div>

@@ -21,8 +21,25 @@ router.get('/reservation', (req, res) => {
   res.render('./reservation/reserve.html');
 });
 
-router.get('/reservation?date=', (req, res) => {
-  res.render('./reservation/reserveList.html');
+router.post('/reservation/save', (req, res) => {
+  console.log("date:", req.body.date);
+
+  if(req.body.date === '' || req.body.category === '' || req.body.time === ''){
+    res.status(400).send("날짜, 시간, 시술을 선택해 주세요.");
+  }else {
+    let sql = "INSERT INTO reservation (category, reserveDate, reserveTime) VALUES (?, ?, ?);";
+    let params = [decodeURI(req.body.category), req.body.date, req.body.time+":00"];
+
+    conn.query(sql, params,  (err, rows, fields) =>{
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        console.log("rows:", rows);
+
+        res.render('./reservation.html');
+      }
+    })
+  }
 });
 
 router.get('/review/list', (req, res) => {
@@ -45,7 +62,7 @@ router.get('/review/write', (req, res) =>{
 });
 
 router.post('/review/write', (req, res) => {
-  console.log("Req:", req.body);
+  console.log("Req:", req.body.date, req.body.data);
 
   if(req.body.title === '' || req.body.body === ''){
     res.status(400).send("제목과 내용을 입력해 주세요.");

@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>네일 올래?</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="../../stylesheets/main.css" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="../../stylesheets/main.css"/>
     <link rel="shortcut icon" href="../../images/nailollae.png"/>
     <!-- menu 불러오기-->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -22,21 +22,21 @@
 <script>
     function checkModify() {
         // TODO 로그인 체크
-        if(window.confirm("게시글을 수정 하시겠습니까?")){
+        if (window.confirm("게시글을 수정 하시겠습니까?")) {
             $.ajax({
                 url: "review/write",
                 type: 'POST',
                 dataType: 'json'
             })
-        }else{
+        } else {
             // TODO 게시글 저장 하지 않고 리스트로 이동
-            window.location.href="/review/list"
+            window.location.href = "/review/list"
         }
     }
 
     // DB 내용 조회
     $(document).ready(() => {
-        console.log("req.params:"+ window.location.pathname.split('/')[3].split('=')[1]);
+        console.log("req.params:" + window.location.pathname.split('/')[3].split('=')[1]);
         let rowId = window.location.pathname.split('/')[3].split('=')[1];
 
         $.ajax({
@@ -94,8 +94,8 @@
                             var elem = document.getElementById("like");
                             console.log("ele:", elem);
 
-                            // TODO 버튼 한번 더 클릭시 싫어요 기능 구현
-                            if(elem.value !== null){
+                            // TODO 버튼 한번 더 클릭시 싫어요 기능 구현, null 말고 다른 조건 필요
+                            if (elem.value !== null) {
                                 elem.value = ('❤️ 좋아요: ' + like + " 개");
                             }
                         }
@@ -125,7 +125,7 @@
                 <h2 id="content">후기</h2>
                 <p><b>네일올래?</b>를 방문해 주신 고객님들의 소중한 후기 입니다. <br/>
                     <u>좋아요와 댓글</u>이 많은 후기를 작성해 주시면, 이달의 후기를 선정하여 소정의 적립금을 선물로 드립니다!🎁</p>
-                <hr class="major" />
+                <hr class="major"/>
 
                 <!-- Elements -->
                 <div class="row gtr-200">
@@ -176,8 +176,10 @@
                                     <ul class="actions">
                                         <!--좋아요 버튼-->
                                         <div type="button" class="like"></div>
-                                        <li><input type="submit" value="Modify" onclick="checkModify()" class="primary" style="float: right"/></li>
-                                        <li><input type="reset" value="List" onclick="location.href='/review/list'"/></li>
+                                        <li><input type="submit" value="Modify" onclick="checkModify()" class="primary"
+                                                   style="float: right"/></li>
+                                        <li><input type="reset" value="List" onclick="location.href='/review/list'"/>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
