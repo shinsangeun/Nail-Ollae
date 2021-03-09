@@ -1,14 +1,14 @@
-# Nail-Ollae(네일 올래?)
+# Nail-Ollae(네일 올래?) [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fshinsangeun%2FNail-Ollae&count_bg=%23F58DBF&title_bg=%23494747&icon=&icon_color=%23E7E7E7&title=visit&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 구현 내용
 
 ### 1. 회원 전용 페이지
 - 회원가입
-	- 아이디 / 비밀번호
+	- 아이디/비밀번호
 	- or 네이버 / 카카오 연동
 - 네일 예약
 	- 달력->날짜 선택
-	- 이달의 아트 / 페디 / 네일 등 선택
+	- 이달의 아트/페디/네일 등 선택
 - 마이 페이지
 	- 적립금
 		- 잔여 적립금
