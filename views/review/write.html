@@ -23,7 +23,7 @@
     function checkSave() {
         if(window.confirm("게시글을 저장 하시겠습니까?")){
             $.ajax({
-                url: "review/write",
+                url: "/review/write",
                 type: 'POST',
                 dataType: 'json'
             })

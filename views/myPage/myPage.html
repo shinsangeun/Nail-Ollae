@@ -28,18 +28,24 @@
                     console.log("res:", response.data);
                     if(response.data.length > 0){
                         for(let index=0; index < response.data.length; index++){
-                            let newRow = $("<tr onclick=test()>");
+                            let newRow = $("<tr>");
                             let cols = "";
                             cols += '<td>' + response.data[index].id + '</td>';
                             cols += '<td>' + response.data[index].category + '</td>';
                             cols += '<td>' + response.data[index].reserveDate.split('T')[0] + '</td>';
-                            cols += '<td>' + response.data[index].amount + '</td>';
-                            cols += '<td>' + response.data[index].balance + '</td>';
+                            cols += '<td>' + response.data[index].amount.toLocaleString() + "원" + '</td>';
+                            cols += '<td>' + response.data[index].balance.toLocaleString() + "원" + '</td>';
+
                             newRow.append(cols);
                             $("#balanceList .balanceData").append(newRow);
+
+                            let balanceText = "";
+                            balanceText += '<button class="button default" style="float: right"> 잔여 적립금: ' + response.data[index].balance.toLocaleString() + "원" + ' </button>';
+                            $(".balance").append(balanceText);
+
                         }
                     }else if(response.data.length === 0){
-                        let newRow = $("<tr onclick=test(1)>");
+                        let newRow = $("<tr>");
                         let cols = "";
                         cols += '<td> </td>';
                         cols += '<td> </td>';
@@ -59,10 +65,9 @@
                 url: "http://localhost:3000/mypage/reservation",
                 method: "GET",
                 success: (response) => {
-                    console.log("res:", response.data);
                     if(response.data.length > 0){
                         for(let index=0; index < response.data.length; index++){
-                            let newRow = $("<tr onclick=test()>");
+                            let newRow = $("<tr>");
                             let cols = "";
                             cols += '<td>' + response.data[index].id + '</td>';
                             cols += '<td>' + response.data[index].category + '</td>';
@@ -72,7 +77,7 @@
                             $("#reserveList .reserveData").append(newRow);
                         }
                     }else if(response.data.length === 0){
-                        let newRow = $("<tr onclick=test(1)>");
+                        let newRow = $("<tr>");
                         let cols = "";
                         cols += '<td> </td>';
                         cols += '<td> </td>';
@@ -101,18 +106,16 @@
                 </header>
 
                 <h2 id="content">마이 페이지</h2>
+                <div class="balance"></div>
+
                 <p><b>네일 올래?</b>를 이용해 주시는 고객님들의 마이 페이지 입니다. <br/>
                     적립금, 예약 현황을 조회 할 수 있습니다!🌹</p>
                 <hr class="major" />
 
                 <div class="row">
                     <div class="col-12 col-12-small">
+                        <br>
                         <h4>적립금 현황</h4>
-                        <ul>
-                            <li>잔여 적립금: <b>0원</b></li>
-                            <li>적립금 사용 현황</li>
-                        </ul>
-
                         <table id="balanceList">
                             <thead>
                             <tr>
