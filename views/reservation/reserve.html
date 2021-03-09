@@ -67,15 +67,12 @@
 
             let date = pageUrl.split('=')[1];
             date = date.split('&')[0];
-            console.log("pageUrl2:", pageUrl, date);
 
             let time = pageUrl.split('&')[1];
             time = time.split('=')[1];
-            console.log("Time:", pageUrl, time);
 
             let category = pageUrl.split('&')[2];
             category = category.split('=')[1];
-            console.log("category:", decodeURI(category));
 
             alert("✅ 날짜: " + date + "\n✅ 시간: " + time + "시" + "\n✅ 시술 내용: " + decodeURI(category) + "\n예약을 진행 하시겠습니까?");
 
@@ -85,6 +82,7 @@
                     url: "reservation/save",
                     method: "POST",
                     data: {
+                        name: 'test',
                         date: date,
                         time: time,
                         category: category

@@ -21,25 +21,48 @@ router.get('/reservation', (req, res) => {
   res.render('./reservation/reserve.html');
 });
 
-router.post('/reservation/save', (req, res) => {
-  console.log("date:", req.body.date);
+router.get('/reservation/list', (req, res) => {
+  res.render('./reservation/list.html');
+});
 
-  if(req.body.date === '' || req.body.category === '' || req.body.time === ''){
+router.post('/reservation/save', (req, res) => {
+  let name = req.body.name;
+  let date = req.body.date;
+  let category = req.body.category;
+  let time = req.body.time;
+
+  if(date === '' || category === '' || time === ''){
     res.status(400).send("날짜, 시간, 시술을 선택해 주세요.");
   }else {
-    let sql = "INSERT INTO reservation (category, reserveDate, reserveTime) VALUES (?, ?, ?);";
-    let params = [decodeURI(req.body.category), req.body.date, req.body.time+":00"];
+    let sql = "INSERT INTO reservation (reserveName, category, reserveDate, reserveTime, dateTime) VALUES (?, ?, ?, ?, now());";
+    let params = [name, decodeURI(category), date, time];
 
     conn.query(sql, params,  (err, rows, fields) =>{
       if (err) {
         console.log('query is not...', err);
       } else {
         console.log("rows:", rows);
+        console.log("typeof:", "/" + req.url.split('/')[1] + "/list");
+        let url = '/' + req.url.split('/')[1] + '/list';
 
-        res.render('./reservation.html');
+        res.redirect("https://localhost:3000" + url);
       }
     })
   }
+});
+
+// TODO 특정 이름만 조회 할 수 있도록 추가
+router.get('/reservation/list/data', (req, res) => {
+  let sql = "SELECT * FROM reservation";
+  conn.query(sql,  (err, rows, fields) => {
+    if(err){
+      console.log('query is not...', err);
+    }else{
+      console.log("rows:", rows);
+
+      res.send({data: rows});
+    }
+  })
 });
 
 router.get('/review/list', (req, res) => {

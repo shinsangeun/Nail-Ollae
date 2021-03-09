@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>네일 올래?</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../stylesheets/main.css" />
+    <link rel="shortcut icon" href="../images/nailollae.png"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- menu 불러오기-->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#menu").load("/common/menu");
+        })
+
+        $(document).ready(function () {
+            $("#commonHeader").load("/common/header");
+        })
+
+        // TODO 특정 이름만 조회 하는 기능 추가
+        $(document).ready(() => {
+            $.ajax({
+                url: "/reservation/list/data",
+                method: "GET",
+                success: (response) => {
+                    console.log("res:", response);
+
+                    for(let index=0; index < response.data.length; index++){
+                        let newRow = $("<tr>");
+                        let cols = "";
+                        cols += '<td>' + response.data[index].id + '</td>';
+                        cols += '<td>' + response.data[index].reserveName + '</td>';
+                        cols += '<td>' + response.data[index].category + '</td>';
+                        cols += '<td>' + response.data[index].reserveTime + '</td>';
+                        cols += '<td>' + response.data[index].reserveDate + '</td>';
+                        newRow.append(cols);
+                        $("#reserveList .tbody").append(newRow);
+                    }
+                }
+            })
+        })
+    </script>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <!-- Header -->
+            <div id="commonHeader"></div>
+            <!-- Content -->
+            <section>
+                <header class="main">
+                    <h1>Reservation</h1>
+                </header>
+
+                <!-- Content -->
+                <h2 id="content">네일 예약</h2>
+                <p><b>네일올래?</b>를 방문해 주신 고객님들의 예약 페이지 입니다. <br/>
+                    날짜 선택 후, 원하시는 시간대에 예약 해주시면 됩니다!🧸</p>
+                <hr class="major" />
+
+                <!-- Elements -->
+                <div class="row gtr-200">
+                    <div class="col-12 col-12-medium">
+                        <!-- Table -->
+                        <h4>Reservation</h4>
+                        <div class="table-wrapper">
+                            <table id="reserveList">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>이름</th>
+                                    <th>카테 고리</th>
+                                    <th>예약 시간</th>
+                                    <th>예약 날짜</th>
+                                </tr>
+                                </thead>
+                                <tbody class="tbody" id="tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Menu -->
+    <div id="menu"></div>
+</div>
+
+<!-- Scripts -->
+<script src="../javascripts/jquery.min.js"></script>
+<script src="../javascripts/browser.min.js"></script>
+<script src="../javascripts/breakpoints.min.js"></script>
+<script src="../javascripts/util.js"></script>
+<script src="../javascripts/main.js"></script>
+
+</body>
+</html>
