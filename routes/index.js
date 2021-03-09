@@ -9,10 +9,6 @@ router.get('/', (req, res) => {
   res.render('index.html');
 });
 
-router.get('/generic', (req, res) => {
-  res.render('generic.html');
-});
-
 router.get('/elements', (req, res) => {
   res.render('elements.html');
 });
@@ -46,6 +42,7 @@ router.post('/reservation/save', (req, res) => {
         let url = '/' + req.url.split('/')[1] + '/list';
 
         res.redirect("https://localhost:3000" + url);
+        res.render('./reservation/list.html');
       }
     })
   }
@@ -58,8 +55,6 @@ router.get('/reservation/list/data', (req, res) => {
     if(err){
       console.log('query is not...', err);
     }else{
-      console.log("rows:", rows);
-
       res.send({data: rows});
     }
   })
@@ -85,13 +80,13 @@ router.get('/review/write', (req, res) =>{
 });
 
 router.post('/review/write', (req, res) => {
-  console.log("Req:", req.body.date, req.body.data);
+  console.log("Req:", req.body.date, req.body.data, req.body.category);
 
   if(req.body.title === '' || req.body.body === ''){
     res.status(400).send("제목과 내용을 입력해 주세요.");
   }else {
-    let sql = "INSERT INTO review (title, name, email, message, image, date) VALUES (?, ?, ?, ?, ?, ?);";
-    let params = [req.body.title, req.body.name, req.body.email, req.body.message, req.body.image, new Date()];
+    let sql = "INSERT INTO review (title, name, message, image, date, category) VALUES (?, ?, ?, ?, ?, ?);";
+    let params = [req.body.title, req.body.name, req.body.message, req.body.image, new Date(), ""];
 
     conn.query(sql, params,  (err, rows, fields) =>{
       if (err) {
