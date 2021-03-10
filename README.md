@@ -32,13 +32,24 @@
 
 
 ## 스크린 샷
+#### 1. Homepage
+![Homepage](/public/images/capture/home.png)
 
-##### 1. Homepage
+#### 2. Reservation
+![reservation](/public/images/capture/reservation.png)
 
-##### 2. Reservation
+#### 3. Review
+![review](/public/images/capture/review.png)
 
-##### 3. Review
+#### 3-1. Review 작성
+![review_write](/public/images/capture/review_write.png)
 
-##### 4. Login
+#### 4. My Page
+![mypage](/public/images/capture/mypage.png)
+
+#### 5. Login
+![login](/public/images/capture/login.png)
+
+
 
 
