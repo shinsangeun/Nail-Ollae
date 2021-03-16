@@ -22,7 +22,7 @@
         // Table 데이터 가져오기
         $(document).ready(() => {
             $.ajax({
-                url: "http://localhost:3000/review/list/data",
+                url: "/review/list/data",
                 method: "GET",
                 success: (response) => {
                     console.log("res:", response.data.length);
@@ -49,10 +49,10 @@
                                 console.log("id:", tdArr[0]);
                                 let rowId = tdArr[0];
 
-                                window.location.href="http://localhost:3000/review/view/id=" + rowId;
+                                window.location.href="/review/view/id=" + rowId;
                             })
                         }
-                    }else if(response.data.length === 0){
+                    }else if(response.data.length === 0 || response.data.length === undefined){
                         let newRow = $("<tr>");
                         let cols = "";
                         cols += '<td> </td>';

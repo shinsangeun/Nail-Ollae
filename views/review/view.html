@@ -40,7 +40,7 @@
         let rowId = window.location.pathname.split('/')[3].split('=')[1];
 
         $.ajax({
-            url: "http://localhost:3000/review/data/id=" + rowId,
+            url: "/review/data/id=" + rowId,
             method: "GET",
             success: (response) => {
                 console.log("res:", response.data[0]);
@@ -82,12 +82,12 @@
 
         $(document).ready(() => {
             $.ajax({
-                url: "http://localhost:3000/review/" + rowId + "/like",
+                url: "/review/" + rowId + "/like",
                 method: "POST",
                 success: (response) => {
                     console.log("response::", response, rowId);
                     $.ajax({
-                        url: "http://localhost:3000/review/data/id=" + rowId,
+                        url: "/review/data/id=" + rowId,
                         method: "GET",
                         success: (response) => {
                             let like = response.data[0].likeCnt;

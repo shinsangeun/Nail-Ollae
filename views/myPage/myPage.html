@@ -22,7 +22,7 @@
         // 적립금 현황
         $(document).ready(() => {
             $.ajax({
-                url: "http://localhost:3000/mypage/balance",
+                url: "/mypage/balance",
                 method: "GET",
                 success: (response) => {
                     console.log("res:", response.data);
@@ -44,7 +44,7 @@
                             $(".balance").append(balanceText);
 
                         }
-                    }else if(response.data.length === 0){
+                    }else if(response.data.length === 0 || response.data.length === undefined){
                         let newRow = $("<tr>");
                         let cols = "";
                         cols += '<td> </td>';
@@ -62,7 +62,7 @@
         // 적립금 현황
         $(document).ready(() => {
             $.ajax({
-                url: "http://localhost:3000/mypage/reservation",
+                url: "/mypage/reservation",
                 method: "GET",
                 success: (response) => {
                     if(response.data.length > 0){
@@ -76,7 +76,7 @@
                             newRow.append(cols);
                             $("#reserveList .reserveData").append(newRow);
                         }
-                    }else if(response.data.length === 0){
+                    }else if(response.data.length === 0 || response.data.length === undefined){
                         let newRow = $("<tr>");
                         let cols = "";
                         cols += '<td> </td>';

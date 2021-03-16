@@ -41,7 +41,7 @@ router.post('/reservation/save', (req, res) => {
         console.log("typeof:", "/" + req.url.split('/')[1] + "/list");
         let url = '/' + req.url.split('/')[1] + '/list';
 
-        res.redirect("https://localhost:3000" + url);
+        res.redirect(url);
         res.render('./reservation/list.html');
       }
     })

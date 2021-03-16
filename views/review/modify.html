@@ -20,7 +20,7 @@
         // Table 데이터 가져오기
         $(document).ready(() => {
             $.ajax({
-                url: "http://localhost:3000/review/modify/:id",
+                url: "/review/modify/:id",
                 method: "GET",
                 success: (response) => {
                     console.log("res:", response.data.length);
