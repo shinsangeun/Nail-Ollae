@@ -3,6 +3,7 @@ const router = express.Router();
 const db_config = require('../db/config');
 const conn = db_config.init();
 db_config.connect(conn);
+const getConnection = require('../db/connection');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -33,17 +34,20 @@ router.post('/reservation/save', (req, res) => {
     let sql = "INSERT INTO reservation (reserveName, category, reserveDate, reserveTime, dateTime) VALUES (?, ?, ?, ?, now());";
     let params = [name, decodeURI(category), date, time];
 
-    conn.query(sql, params,  (err, rows, fields) =>{
-      if (err) {
-        console.log('query is not...', err);
-      } else {
-        console.log("rows:", rows);
-        console.log("typeof:", "/" + req.url.split('/')[1] + "/list");
-        let url = '/' + req.url.split('/')[1] + '/list';
+    getConnection((conn) => {
+      conn.query(sql, params,  (err, rows, fields) =>{
+        if (err) {
+          console.log('query is not...', err);
+        } else {
+          console.log("rows:", rows);
+          console.log("typeof:", "/" + req.url.split('/')[1] + "/list");
+          let url = '/' + req.url.split('/')[1] + '/list';
 
-        res.redirect(url);
-        res.render('./reservation/list.html');
-      }
+          res.redirect(url);
+          res.render('./reservation/list.html');
+        }
+      });
+      conn.release();
     })
   }
 });
@@ -51,12 +55,16 @@ router.post('/reservation/save', (req, res) => {
 // TODO 특정 이름만 조회 할 수 있도록 추가
 router.get('/reservation/list/data', (req, res) => {
   let sql = "SELECT * FROM reservation";
-  conn.query(sql,  (err, rows, fields) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      res.send({data: rows});
-    }
+
+  getConnection((conn) => {
+    conn.query(sql,  (err, rows, fields) => {
+      if(err){
+        console.log('query is not...', err);
+      }else{
+        res.send({data: rows});
+      }
+    })
+    conn.release();
   })
 });
 
@@ -66,13 +74,18 @@ router.get('/review/list', (req, res) => {
 
 router.get('/review/list/data', (req, res) => {
   let sql = "SELECT * FROM review";
-  conn.query(sql,  (err, rows, fields) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      res.send({data: rows});
-    }
-  })
+
+  getConnection((conn) => {
+    conn.query(sql, (err, rows, fields) => {
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        res.send({data: rows});
+      }
+    })
+    conn.release();
+  });
+
 });
 
 router.get('/review/write', (req, res) =>{
@@ -88,14 +101,17 @@ router.post('/review/write', (req, res) => {
     let sql = "INSERT INTO review (title, name, message, image, date, category) VALUES (?, ?, ?, ?, ?, ?);";
     let params = [req.body.title, req.body.name, req.body.message, req.body.image, new Date(), ""];
 
-    conn.query(sql, params,  (err, rows, fields) =>{
-      if (err) {
-        console.log('query is not...', err);
-      } else {
-        console.log("rows:", rows);
-        res.render('./review/list.html', {list: rows});
-      }
-    })
+    getConnection((conn) => {
+      conn.query(sql, params,  (err, rows, fields) =>{
+        if (err) {
+          console.log('query is not...', err);
+        } else {
+          console.log("rows:", rows);
+          res.render('./review/list.html', {list: rows});
+        }
+      })
+      conn.release();
+    });
   }
 });
 
@@ -109,13 +125,17 @@ router.get('/review/data/:id', (req, res) => {
 
   // 특정 id 받아 오도록 수정
   let sql = "SELECT * FROM review where id =" + id;
-  conn.query(sql,  (err, rows) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      res.send({data: rows});
-    }
-  })
+
+  getConnection((conn) => {
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        res.send({data: rows});
+      }
+    })
+    conn.release();
+  });
 });
 
 /* TODO 좋아요 페이지 id 파라미터 수정 필요 */
@@ -124,13 +144,17 @@ router.post('/review/:id/like', (req, res) => {
 
   // 특정 id 받아 오도록 수정
   let sql = "UPDATE review SET likeCnt = likeCnt + 1 where id = 20";
-  conn.query(sql,  (err, rows) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      res.send({data: rows});
-    }
-  })
+
+  getConnection((conn) => {
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        res.send({data: rows});
+      }
+    })
+    conn.release();
+  });
 });
 
 router.get('/review/modify', (req, res) => {
@@ -143,15 +167,19 @@ router.get('/review/modify/:id', (req, res) => {
   console.log("id==>", id);
 
   let sql = "SELECT * FROM review where id=" + id;
-  conn.query(sql,  (err, rows, fields) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      console.log("rows:", rows);
-      res.send({data: rows});
-     // res.redirect('/review/modify?id=' + id);
-    }
-  })
+
+  getConnection((conn) => {
+    conn.query(sql, (err, rows, fields) => {
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        console.log("rows:", rows);
+        res.send({data: rows});
+        // res.redirect('/review/modify?id=' + id);
+      }
+    })
+    conn.release();
+  });
 
   // 후기 업데이트 구문
   /*
@@ -177,25 +205,33 @@ router.get('/myPage', (req, res) => {
 /* 적립금 조회 */
 router.get('/myPage/balance', (req, res) => {
   let sql = "SELECT * FROM mypage";
-  conn.query(sql,  (err, rows, fields) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      res.send({data: rows});
-    }
-  })
+
+  getConnection((conn) => {
+    conn.query(sql,  (err, rows, fields) => {
+      if(err){
+        console.log('query is not...', err);
+      }else{
+        res.send({data: rows});
+      }
+    })
+    conn.release();
+  });
 });
 
 /* 예약 조회 */
 router.get('/myPage/reservation', (req, res) => {
   let sql = "SELECT * FROM reservation";
-  conn.query(sql,  (err, rows, fields) => {
-    if(err){
-      console.log('query is not...', err);
-    }else{
-      res.send({data: rows});
-    }
-  })
+
+  getConnection((conn) => {
+    conn.query(sql, (err, rows, fields) => {
+      if (err) {
+        console.log('query is not...', err);
+      } else {
+        res.send({data: rows});
+      }
+    })
+    conn.release();
+  });
 });
 
 router.get('/login', (req, res) => {
