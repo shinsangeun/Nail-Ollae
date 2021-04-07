@@ -34,7 +34,8 @@ module.exports = {
     on: function (err) {
         console.log('db error', err);
         if(err.code === 'PROTOCOL_CONNECTION_LOST') {
-            return mysql.createConnection(db_info);
+            const conn = exports.init();
+            return exports.connect(conn);
         } else {
             throw err;
         }
