@@ -16,12 +16,12 @@ const db_info = {
     port: '3306',
     user: 'bc06ae6dbc0345',
     password: '00cba21a',
-    database: 'heroku_4c235e2ad6c8c27',
-    connectionLimit: 30
+    database: 'heroku_4c235e2ad6c8c27'
 }
 
 module.exports = {
     init: function () {
+        console.log("Mysql init...");
         return mysql.createConnection(db_info);
     },
     connect: function (conn) {
@@ -32,7 +32,7 @@ module.exports = {
         })
     },
     on: function (err) {
-        console.log('db error', err);
+        console.log('db error:', err);
         if(err.code === 'PROTOCOL_CONNECTION_LOST') {
             const conn = exports.init();
             return exports.connect(conn);
